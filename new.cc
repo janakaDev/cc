@@ -22,16 +22,14 @@ int main(int argc,char *argv[])
 
     Time::SetResolution(Time::NS);
      // UDP ECO Start
-   /* LogComponentEnable("UdpEchoServerApplication",LOG_LEVEL_INFO);
+    /*LogComponentEnable("UdpEchoServerApplication",LOG_LEVEL_INFO);
     LogComponentEnable("UdpEchoClientApplication",LOG_LEVEL_INFO);*/
     //UDP ECO Stop
 
     // UDP Start
     /*LogComponentEnable ("UdpClient", LOG_LEVEL_INFO);
-    LogComponentEnable ("UdpServer", LOG_LEVEL_INFO);
-    Address serverAddress;*/
-    //UDP Stop
-
+    LogComponentEnable ("UdpServer", LOG_LEVEL_INFO);*/   
+    //UDP Stop    
    
 
     NS_LOG_INFO("Creating Nodes.."); //to print some text
@@ -81,14 +79,13 @@ int main(int argc,char *argv[])
     stack.Install(nodes);
 
     Ipv4AddressHelper address;
-    address.SetBase("109.11.12.0","255.255.255.0");
+    address.SetBase("10.1.1.0","255.255.255.0");
 
     Ipv4InterfaceContainer interfaces = address.Assign(devices);
     
 
-    // UDP echo server start
-    /*serverAddress = Address (interfaces.GetAddress (1));
-    UdpEchoServerHelper echoServer(9);
+    // UDP echo server start    
+    /*UdpEchoServerHelper echoServer(9);
     ApplicationContainer serverApps = echoServer.Install(nodes.Get(1));
     serverApps.Start(Seconds(1.0));
     serverApps.Stop(Seconds(10.0));*/
@@ -104,13 +101,12 @@ int main(int argc,char *argv[])
     // TCP server start
     PacketSinkHelper sink ("ns3::TcpSocketFactory",Address(InetSocketAddress (Ipv4Address::GetAny (), 10)));
     ApplicationContainer app = sink.Install (nodes.Get(0));
-
     app.Start (Seconds (1.0));
     app.Stop (Seconds (3.0));
     // TCP server Stop
 
     // UDP echo client Start
-   /* UdpEchoClientHelper echoClient(interfaces.GetAddress(1),9);
+    /*UdpEchoClientHelper echoClient(interfaces.GetAddress(1),9);
     echoClient.SetAttribute("MaxPackets",UintegerValue(1));
     echoClient.SetAttribute("Interval",TimeValue(Seconds(1.0)));
     echoClient.SetAttribute("PacketSize",UintegerValue(1024));
@@ -122,7 +118,7 @@ int main(int argc,char *argv[])
 
 
      // UDP client Start
-        /*UdpClientHelper client (serverAddress,4000);
+       /* UdpClientHelper client (interfaces.GetAddress(1),4000);
         client.SetAttribute ("MaxPackets", UintegerValue (320));
         client.SetAttribute ("Interval", TimeValue (Seconds (0.05)));
         client.SetAttribute ("PacketSize", UintegerValue (1024));
@@ -133,7 +129,7 @@ int main(int argc,char *argv[])
 
 
      //TCP Client start
-     OnOffHelper onOffHelper ("ns3::TcpSocketFactory", Address(InetSocketAddress (Ipv4Address ("109.11.12.1"), 10)));
+    OnOffHelper onOffHelper ("ns3::TcpSocketFactory", Address(InetSocketAddress (Ipv4Address ("10.1.1.0"), 10)));
     onOffHelper.SetAttribute ("OnTime", StringValue ("ns3::ConstantRandomVariable[Constant=1]"));
     onOffHelper.SetAttribute ("OffTime", StringValue ("ns3::ConstantRandomVariable[Constant=0]"));
 
