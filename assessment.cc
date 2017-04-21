@@ -124,8 +124,29 @@ int main(int argc,char *argv[])
     anim2.UpdateNodeSize(4,1.0,1.0);
 
 	
+	
+	
+	
 	//csma.EnablePcapAll("tcpAnim");
 
+	
+	/*
+	PacketSinkHelper sink("ns3::TcpSocketFactory",Address(InetSocketAddress(Ipv4Address::GetAny(),10)));
+    ApplicationContainer app = sink.Install(nodes.Get(0)); 
+    app.Start(Seconds(1.0));
+    app.Stop(Seconds(3.0));
+    OnOffHelper onoffhelper ("ns3::TcpSocketFactory",Address(InetSocketAddress(Ipv4Address("10.1.1.1"),10)));
+    onoffhelper.SetAttribute ("OnTime",StringValue("ns3::ConstantRandomVariable[Constant=1]"));
+    onoffhelper.SetAttribute ("OffTime",StringValue("ns3::ConstantRandomVariable[Constant=0]"));
+    onoffhelper.SetAttribute("DataRate",StringValue("2Mbps"));
+    onoffhelper.SetAttribute("PacketSize",UintegerValue(1024));
+    app=onoffhelper.Install(nodes.Get(1));
+		
+		
+	
+	*/
+	
+	
     Simulator::Run();
     Simulator::Destroy();
 
