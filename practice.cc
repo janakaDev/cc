@@ -123,6 +123,8 @@ int main(int argc,char *argv[])
     anim2.UpdateNodeSize(3,1.0,1.0);
     anim2.UpdateNodeSize(4,1.0,1.0);
 
+	
+	//csma.EnablePcapAll("tcpAnim");
 
     Simulator::Run();
     Simulator::Destroy();
